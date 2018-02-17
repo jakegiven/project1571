@@ -23,6 +23,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		951A08752038986600301BF6 /* ciphertexts */ = {isa = PBXFileReference; lastKnownFileType = folder; name = ciphertexts; path = ../../ciphertexts; sourceTree = "<group>"; };
 		95F80695203893DC009B2BBA /* cracking-ciphers */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "cracking-ciphers"; sourceTree = BUILT_PRODUCTS_DIR; };
 		95F80698203893DC009B2BBA /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		95F8069F2038944D009B2BBA /* cipher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cipher.h; sourceTree = "<group>"; };
@@ -58,6 +59,7 @@
 		95F80697203893DC009B2BBA /* cracking-ciphers */ = {
 			isa = PBXGroup;
 			children = (
+				951A08752038986600301BF6 /* ciphertexts */,
 				95F80698203893DC009B2BBA /* main.cpp */,
 				95F8069F2038944D009B2BBA /* cipher.h */,
 			);

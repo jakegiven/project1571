@@ -9,9 +9,33 @@
 #include "cipher.h"
 using namespace std;
 
+string getInputFile(const char * argv[]){
+    ifstream cipherFileIn;
+    int i = 0;
+    string line;
+    string cipher_in [] = {};
+    
+    cipherFileIn.open(argv[1]);
+    
+    if(!cipherFileIn) {
+        cout << "Unable to open file...";
+    }
+    
+    while (getline(cipherFileIn, line)){
+        cipher_in[i] = line;
+        i++;
+    }
+    cipherFileIn.close();
+    
+    return cipher_in[0];
+}
+
 int main(int argc, const char * argv[]) {
     // handle .txt file input
-    fopen(argv[1], "r");
+    string cipher_in = getInputFile(argv);
+    
+    cout << cipher_in << endl;
+    
     
     
     
