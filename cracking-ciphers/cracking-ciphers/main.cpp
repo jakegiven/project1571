@@ -25,7 +25,7 @@ string getInputFile(const char * argv[]){
         while (getline(cipherFileIn, line)){
             cipher_in[i] = line;
             i++;
-    }
+        }
     } catch(exception e) {
         cerr << e.what() << endl;
     }
@@ -36,6 +36,7 @@ string getInputFile(const char * argv[]){
 
 void findMonograms (string cipher_in, int monograms [26], double monogram_frequencies [26]){
     int length = 0;
+    double IC = 0.0;
     
     for(int i=0; i < cipher_in.length(); i++){
         switch (cipher_in[i]) {
@@ -156,6 +157,11 @@ void findMonograms (string cipher_in, int monograms [26], double monogram_freque
     cout << "X: " << monograms[23] << "\tFrequency: " << setprecision(5) << monogram_frequencies[23] << "%" << endl;
     cout << "Y: " << monograms[24] << "\tFrequency: " << setprecision(5) << monogram_frequencies[24] << "%" << endl;
     cout << "Z: " << monograms[25] << "\tFrequency: " << setprecision(5) << monogram_frequencies[25] << "%" << endl << endl;
+    
+    
+//    IC = findIC(cipher_in, monograms);
+//
+//    cout << "Index of Coincidence: " << IC << endl;
 }
 
 void findDigrams (string cipher_in, int digrams [676], double digram_frequencies [676]) {
@@ -184,12 +190,28 @@ void findDigrams (string cipher_in, int digrams [676], double digram_frequencies
             cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
         }
     }
+    cout << endl;
+}
+
+void findIC (string cipher_in, int monograms [26]) {
+    // Finds the Index of Coincidence (IC): given a ciphertext string as input, outputs the IC value
+    double text_length = (double)cipher_in.length();
+    double sum_of_monograms = 0.0;
+    
+    for(int i = 0; i<26; i++){
+        sum_of_monograms = sum_of_monograms + (monograms[i]*(monograms[i]-1));
+    }
+
+    double index_of_coincidence = (1/(text_length*(text_length-1)))*sum_of_monograms;
+    
+    cout << "Index of Coincidence (IC): " << index_of_coincidence << endl;
 }
 
 
 int main(int argc, const char * argv[]) {
     // handle .txt file input
-    string cipher_in = getInputFile(argv);
+    string cipher_in = "";
+    cipher_in = getInputFile(argv);
     
     int monograms [26] = {};
     int digrams [676] = {};
@@ -199,7 +221,8 @@ int main(int argc, const char * argv[]) {
     findMonograms(cipher_in, monograms, monogram_frequencies);
     
     findDigrams(cipher_in, digrams, digram_frequencies);
-
+    
+    findIC(cipher_in, monograms);
     
     return 0;
 }
