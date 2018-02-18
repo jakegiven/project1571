@@ -12,6 +12,12 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <iomanip>
+
+using namespace std;
+
+string getInputFile(const char * argv[]);
+int * findAmountOfLetters (string cipher_in);
 
 
 #endif /* cipher_h */
