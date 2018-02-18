@@ -194,9 +194,9 @@ void findDigrams (string cipher_in, int digrams [676], double digram_frequencies
     for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
     {
         if(iter->second >= 100){
-            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
         } else {
-            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
         }
     }
     cout << endl;
