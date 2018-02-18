@@ -185,9 +185,9 @@ void findDigrams (string cipher_in, int digrams [676], double digram_frequencies
     for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
     {
         if(iter->second >= 100){
-            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
         } else {
-            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
         }
     }
     cout << endl;
@@ -207,6 +207,29 @@ void findIC (string cipher_in, int monograms [26]) {
     cout << "Index of Coincidence (IC): " << index_of_coincidence << endl;
 }
 
+void mapFrequencies () {
+    
+//    map<string,int> frequently_used_english_letters;
+//    
+//    string seq("  ");
+//    for(int i = 0; i < 26; i++)
+//    {
+//        seq[0] = cipher_in[i-1];
+//        seq[1] = cipher_in[i];
+//        
+//        //ignore spaces
+//        if (seq.compare(0,1, " ") && seq.compare(1,1, " "))
+//        {
+//            frequently_used_english_letters[seq]++;
+//        }
+//    }
+    
+    
+//    string frequently_used_english_letters [26]
+//    = {"E - 12.702%", "T - 9.056%", "A - 8.15%", "O - 8.00%", "I - 6.35%", "N - 7.10%", "S", "H", "R", "D", "L", "C", "U", "M", "W", "F", "G", "Y", "P", "B", "V", "K", "J", "X", "Q", "Z"};
+    
+}
+
 
 int main(int argc, const char * argv[]) {
     // handle .txt file input
@@ -220,9 +243,13 @@ int main(int argc, const char * argv[]) {
     
     findMonograms(cipher_in, monograms, monogram_frequencies);
     
+//    mapFrequencies();
+    
     findDigrams(cipher_in, digrams, digram_frequencies);
     
     findIC(cipher_in, monograms);
+    
+    cout << endl;
     
     return 0;
 }
