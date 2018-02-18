@@ -13,11 +13,13 @@
 #include <string>
 #include <fstream>
 #include <iomanip>
+#include <map>
 
 using namespace std;
 
 string getInputFile(const char * argv[]);
-int * findAmountOfLetters (string cipher_in);
+void findMonograms (string cipher_in, int monograms [26], double monogram_frequencies [26]);
+void findDigrams ();
 
 
 #endif /* cipher_h */

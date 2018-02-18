@@ -34,101 +34,88 @@ string getInputFile(const char * argv[]){
     return cipher_in[0];
 }
 
-void findAmountOfLetters (){
-    
-}
-
-void frequencyOfLetters (){
-    
-}
-
-int main(int argc, const char * argv[]) {
-    // handle .txt file input
-    string cipher_in = getInputFile(argv);
-    
-    int letters [26] = {};
-    
+void findMonograms (string cipher_in, int monograms [26], double monogram_frequencies [26]){
     int length = 0;
     
     for(int i=0; i < cipher_in.length(); i++){
         switch (cipher_in[i]) {
             case 'A':
-                letters[0] = letters[0] + 1;
+                monograms[0] = monograms[0] + 1;
                 break;
             case 'B':
-                letters[1] = letters[1] + 1;
+                monograms[1] = monograms[1] + 1;
                 break;
             case 'C':
-                letters[2] = letters[2] + 1;
+                monograms[2] = monograms[2] + 1;
                 break;
             case 'D':
-                letters[3] = letters[3] + 1;
+                monograms[3] = monograms[3] + 1;
                 break;
             case 'E':
-                letters[4] = letters[4] + 1;
+                monograms[4] = monograms[4] + 1;
                 break;
             case 'F':
-                letters[5] = letters[5] + 1;
+                monograms[5] = monograms[5] + 1;
                 break;
             case 'G':
-                letters[6] = letters[6] + 1;
+                monograms[6] = monograms[6] + 1;
                 break;
             case 'H':
-                letters[7] = letters[7] + 1;
+                monograms[7] = monograms[7] + 1;
                 break;
             case 'I':
-                letters[8] = letters[8] + 1;
+                monograms[8] = monograms[8] + 1;
                 break;
             case 'J':
-                letters[9] = letters[9] + 1;
+                monograms[9] = monograms[9] + 1;
                 break;
             case 'K':
-                letters[10] = letters[10] + 1;
+                monograms[10] = monograms[10] + 1;
                 break;
             case 'L':
-                letters[11] = letters[11] + 1;
+                monograms[11] = monograms[11] + 1;
                 break;
             case 'M':
-                letters[12] = letters[12] + 1;
+                monograms[12] = monograms[12] + 1;
                 break;
             case 'N':
-                letters[13] = letters[13] + 1;
+                monograms[13] = monograms[13] + 1;
                 break;
             case 'O':
-                letters[14] = letters[14] + 1;
+                monograms[14] = monograms[14] + 1;
                 break;
             case 'P':
-                letters[15] = letters[15] + 1;
+                monograms[15] = monograms[15] + 1;
                 break;
             case 'Q':
-                letters[16] = letters[16] + 1;
+                monograms[16] = monograms[16] + 1;
                 break;
             case 'R':
-                letters[17] = letters[17] + 1;
+                monograms[17] = monograms[17] + 1;
                 break;
             case 'S':
-                letters[18] = letters[18] + 1;
+                monograms[18] = monograms[18] + 1;
                 break;
             case 'T':
-                letters[19] = letters[19] + 1;
+                monograms[19] = monograms[19] + 1;
                 break;
             case 'U':
-                letters[20] = letters[20] + 1;
+                monograms[20] = monograms[20] + 1;
                 break;
             case 'V':
-                letters[21] = letters[21] + 1;
+                monograms[21] = monograms[21] + 1;
                 break;
             case 'W':
-                letters[22] = letters[22] + 1;
+                monograms[22] = monograms[22] + 1;
                 break;
             case 'X':
-                letters[23] = letters[23] + 1;
+                monograms[23] = monograms[23] + 1;
                 break;
             case 'Y':
-                letters[24] = letters[24] + 1;
+                monograms[24] = monograms[24] + 1;
                 break;
             case 'Z':
-                letters[25] = letters[25] + 1;
+                monograms[25] = monograms[25] + 1;
                 break;
             default:
                 cout << "Character not recognized";
@@ -136,47 +123,83 @@ int main(int argc, const char * argv[]) {
         }
         length++;
     }
-    
     cout << "Number of characters in file: " << length << endl;
     
-    double frequencies [26] = {};
-    
     for(int i = 0; i < 26; i++){
-        frequencies[i] = ((double)letters[i]/(double)cipher_in.length())*100;
+        monogram_frequencies[i] = ((double)monograms[i]/(double)cipher_in.length())*100;
     }
     
-    cout << "Frequency of Letters:" << endl;
-    cout << "A: " << letters[0] << "\tFrequency: " << setprecision(5) << frequencies[0] << "%" << endl;
-    cout << "B: " << letters[1] << "\tFrequency: " << setprecision(5) << frequencies[1] << "%" << endl;
-    cout << "C: " << letters[2] << "\tFrequency: " << setprecision(5) << frequencies[2] << "%" << endl;
-    cout << "D: " << letters[3] << "\tFrequency: " << setprecision(5) << frequencies[3] << "%" << endl;
-    cout << "E: " << letters[4] << "\tFrequency: " << setprecision(5) << frequencies[4] << "%" << endl;
-    cout << "F: " << letters[5] << "\tFrequency: " << setprecision(5) << frequencies[5] << "%" << endl;
-    cout << "G: " << letters[6] << "\tFrequency: " << setprecision(5) << frequencies[6] << "%" << endl;
-    cout << "H: " << letters[7] << "\tFrequency: " << setprecision(5) << frequencies[7] << "%" << endl;
-    cout << "I: " << letters[8] << "\tFrequency: " << setprecision(5) << frequencies[8] << "%" << endl;
-    cout << "J: " << letters[9] << "\tFrequency: " << setprecision(5) << frequencies[9] << "%" << endl;
-    cout << "K: " << letters[10] << "\tFrequency: " << setprecision(5) << frequencies[10] << "%" << endl;
-    cout << "L: " << letters[11] << "\tFrequency: " << setprecision(5) << frequencies[11] << "%" << endl;
-    cout << "M: " << letters[12] << "\tFrequency: " << setprecision(5) << frequencies[12] << "%" << endl;
-    cout << "N: " << letters[13] << "\tFrequency: " << setprecision(5) << frequencies[13] << "%" << endl;
-    cout << "O: " << letters[14] << "\tFrequency: " << setprecision(5) << frequencies[14] << "%" << endl;
-    cout << "P: " << letters[15] << "\tFrequency: " << setprecision(5) << frequencies[15] << "%" << endl;
-    cout << "Q: " << letters[16] << "\tFrequency: " << setprecision(5) << frequencies[16] << "%" << endl;
-    cout << "R: " << letters[17] << "\tFrequency: " << setprecision(5) << frequencies[17] << "%" << endl;
-    cout << "S: " << letters[18] << "\tFrequency: " << setprecision(5) << frequencies[18] << "%" << endl;
-    cout << "T: " << letters[19] << "\tFrequency: " << setprecision(5) << frequencies[19] << "%" << endl;
-    cout << "U: " << letters[20] << "\tFrequency: " << setprecision(5) << frequencies[20] << "%" << endl;
-    cout << "V: " << letters[21] << "\tFrequency: " << setprecision(5) << frequencies[21] << "%" << endl;
-    cout << "W: " << letters[22] << "\tFrequency: " << setprecision(5) << frequencies[22] << "%" << endl;
-    cout << "X: " << letters[23] << "\tFrequency: " << setprecision(5) << frequencies[23] << "%" << endl;
-    cout << "Y: " << letters[24] << "\tFrequency: " << setprecision(5) << frequencies[24] << "%" << endl;
-    cout << "Z: " << letters[25] << "\tFrequency: " << setprecision(5) << frequencies[25] << "%" << endl;
+    cout << "Monogram Occurances:" << endl;
+    cout << "A: " << monograms[0] << "\tFrequency: " << setprecision(5) << monogram_frequencies[0] << "%" << endl;
+    cout << "B: " << monograms[1] << "\tFrequency: " << setprecision(5) << monogram_frequencies[1] << "%" << endl;
+    cout << "C: " << monograms[2] << "\tFrequency: " << setprecision(5) << monogram_frequencies[2] << "%" << endl;
+    cout << "D: " << monograms[3] << "\tFrequency: " << setprecision(5) << monogram_frequencies[3] << "%" << endl;
+    cout << "E: " << monograms[4] << "\tFrequency: " << setprecision(5) << monogram_frequencies[4] << "%" << endl;
+    cout << "F: " << monograms[5] << "\tFrequency: " << setprecision(5) << monogram_frequencies[5] << "%" << endl;
+    cout << "G: " << monograms[6] << "\tFrequency: " << setprecision(5) << monogram_frequencies[6] << "%" << endl;
+    cout << "H: " << monograms[7] << "\tFrequency: " << setprecision(5) << monogram_frequencies[7] << "%" << endl;
+    cout << "I: " << monograms[8] << "\tFrequency: " << setprecision(5) << monogram_frequencies[8] << "%" << endl;
+    cout << "J: " << monograms[9] << "\tFrequency: " << setprecision(5) << monogram_frequencies[9] << "%" << endl;
+    cout << "K: " << monograms[10] << "\tFrequency: " << setprecision(5) << monogram_frequencies[10] << "%" << endl;
+    cout << "L: " << monograms[11] << "\tFrequency: " << setprecision(5) << monogram_frequencies[11] << "%" << endl;
+    cout << "M: " << monograms[12] << "\tFrequency: " << setprecision(5) << monogram_frequencies[12] << "%" << endl;
+    cout << "N: " << monograms[13] << "\tFrequency: " << setprecision(5) << monogram_frequencies[13] << "%" << endl;
+    cout << "O: " << monograms[14] << "\tFrequency: " << setprecision(5) << monogram_frequencies[14] << "%" << endl;
+    cout << "P: " << monograms[15] << "\tFrequency: " << setprecision(5) << monogram_frequencies[15] << "%" << endl;
+    cout << "Q: " << monograms[16] << "\tFrequency: " << setprecision(5) << monogram_frequencies[16] << "%" << endl;
+    cout << "R: " << monograms[17] << "\tFrequency: " << setprecision(5) << monogram_frequencies[17] << "%" << endl;
+    cout << "S: " << monograms[18] << "\tFrequency: " << setprecision(5) << monogram_frequencies[18] << "%" << endl;
+    cout << "T: " << monograms[19] << "\tFrequency: " << setprecision(5) << monogram_frequencies[19] << "%" << endl;
+    cout << "U: " << monograms[20] << "\tFrequency: " << setprecision(5) << monogram_frequencies[20] << "%" << endl;
+    cout << "V: " << monograms[21] << "\tFrequency: " << setprecision(5) << monogram_frequencies[21] << "%" << endl;
+    cout << "W: " << monograms[22] << "\tFrequency: " << setprecision(5) << monogram_frequencies[22] << "%" << endl;
+    cout << "X: " << monograms[23] << "\tFrequency: " << setprecision(5) << monogram_frequencies[23] << "%" << endl;
+    cout << "Y: " << monograms[24] << "\tFrequency: " << setprecision(5) << monogram_frequencies[24] << "%" << endl;
+    cout << "Z: " << monograms[25] << "\tFrequency: " << setprecision(5) << monogram_frequencies[25] << "%" << endl << endl;
+}
+
+void findDigrams (string cipher_in, int digrams [676], double digram_frequencies [676]) {
+    cout << "Digram Occurances: " << endl;
     
+    map<string,int> occurences;
     
+    string seq("  ");
+    for(int i = 1; i < cipher_in.length() - 1; i++)
+    {
+        seq[0] = cipher_in[i-1];
+        seq[1] = cipher_in[i];
+        
+        //ignore spaces
+        if (seq.compare(0,1, " ") && seq.compare(1,1, " "))
+        {
+            occurences[seq]++;
+        }
+    }
     
+    for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
+    {
+        if(iter->second >= 100){
+            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+        } else {
+            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/676 << "%" << endl;
+        }
+    }
+}
+
+
+int main(int argc, const char * argv[]) {
+    // handle .txt file input
+    string cipher_in = getInputFile(argv);
     
+    int monograms [26] = {};
+    int digrams [676] = {};
+    double monogram_frequencies [26] = {};
+    double digram_frequencies [676] = {};
     
+    findMonograms(cipher_in, monograms, monogram_frequencies);
+    
+    findDigrams(cipher_in, digrams, digram_frequencies);
+
     
     return 0;
 }
