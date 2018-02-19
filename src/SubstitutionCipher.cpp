@@ -83,3 +83,4 @@ void FindSubstitutionKeys(string cipherText,double monogram_frequencies[]){
         }
     }
 }
+
