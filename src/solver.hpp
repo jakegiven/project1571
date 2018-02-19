@@ -20,17 +20,18 @@ class solver{
 public:
     std::string run(const char * argv[]);
     std::string getInputFile(const char * argv[]);
+    int testPlainText(std::string plaintext);
     double monogram_frequencies[26];
     double digram_frequencies[676];
     double trigram_frequencies[17576];
     int monograms [26];
     int digrams [676];
-    int trigrams [ 17576];
+    int trigrams [17576];
     std::string cipher_in;
     void findMonograms ();
     void findDigrams ();
     void findTrigrams ();
-    void findIC ();
+    double findIC ();
 
 
 

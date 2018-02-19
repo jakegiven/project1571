@@ -11,28 +11,55 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
+
 using namespace std;
-string solver::run(const char * argv[]){
+string solver::run(const char * argv[]) {
     
     cipher_in = getInputFile(argv);
-    
+    //cout << cipher_in << endl;
     
     vector<string> plain_text;
     vector<int> potentialKeys;
-    
+    double ioc;
     
     findMonograms();
     
     findDigrams();
     findTrigrams();
     
-    findIC();
+    ioc = findIC();
     
-    potentialKeys = FindShiftKeys(cipher_in,monogram_frequencies);
+    if ((ioc > 1.68) && (ioc < 1.78))
+    {
+        cout << "Cipher is most likely Shift -> finding possible keys\n";
+        potentialKeys = FindShiftKeys(cipher_in, monogram_frequencies);
+        plain_text = DecryptShift(cipher_in, potentialKeys);
+        
+        for (int i = 0; i < plain_text.size(); i++)
+        {
+            cout << "Testing Key: " << potentialKeys[i] << endl;
+            int tmp = testPlainText(plain_text[i]);
+            if ( tmp > 20)
+            {
+                cout << "Possible Decryption as THE/AND count is " << tmp << endl << plain_text[i] << endl << endl;
+            }
+            else
+            {
+                cout << "Unlikely Decryption as THE/AND count is " << tmp << endl << endl;
+            }
+        }
+        
+    }
+    else if (ioc >= 1.78)
+    {
+        cout << "Cipher is most likely Substitution -> finding possible keys\n";
+    }
+    else if ((ioc > 0.95) && (ioc < 1.05))
+    {
+        cout << "Cipher is most likely One-Time Pad -> Good luck finding keys\n";
+    }
     
-    plain_text = DecryptShift(cipher_in, potentialKeys);
-    
-    for(int i = 0; i < plain_text.size(); i++) cout << "Key:" << potentialKeys[i] <<"\t" << "Plain Text:" << plain_text[i]<<endl;
     return "hi";
 }
 
@@ -43,8 +70,8 @@ string solver::getInputFile(const char * argv[]){
     vector<string> cipher_in;
     //string cipher_in [] = {};
     char temp[200];
-    realpath(argv[1],temp);
-    cout << argv[1] << endl<<temp<<endl;
+    //realpath(argv[1],temp);
+    cout << argv[1] << endl;
     
     cipherFileIn.open(argv[1]);
     
@@ -67,9 +94,30 @@ string solver::getInputFile(const char * argv[]){
 }
 
 
+int solver::testPlainText(std::string plaintext) {
+    
+    int occurences;
+    occurences = 0;
+    
+    // test for THE
+    for (int i = 0; i < plaintext.length()-2; i++)
+    {
+        if (plaintext[i] == 'T' && plaintext[i+1] == 'H' && plaintext[i + 2] == 'E')
+            occurences++;
+    }
+    // test for AND
+    for (int i = 0; i < plaintext.length() - 2; i++)
+    {
+        if (plaintext[i] == 'A' && plaintext[i + 1] == 'N' && plaintext[i + 2] == 'D')
+            occurences++;
+    }
+    return occurences;
+}
+
 void solver::findMonograms (){
     int length = 0;
-    double IC = 0.0;
+    for (int i = 0; i < 26; i++)
+        monograms[i] = 0;
     
     for(int i=0; i < cipher_in.length(); i++){
         switch (cipher_in[i]) {
@@ -255,7 +303,7 @@ void solver::findDigrams () {
     cout << endl;
 }
 
-void solver::findIC () {
+double solver::findIC () {
     // Finds the Index of Coincidence (IC): given a ciphertext string as input, outputs the IC value
     double text_length = (double)cipher_in.length();
     double sum_of_monograms = 0.0;
@@ -264,9 +312,10 @@ void solver::findIC () {
         sum_of_monograms = sum_of_monograms + (monograms[i]*(monograms[i]-1));
     }
     
-    double index_of_coincidence = (1/(text_length*(text_length-1)))*sum_of_monograms;
+    double index_of_coincidence = (1/(0.0385*(text_length*(text_length-1))))*sum_of_monograms;
     
     cout << "Index of Coincidence (IC): " << index_of_coincidence << endl;
+    return (index_of_coincidence);
 }
 
 
