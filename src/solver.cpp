@@ -11,6 +11,7 @@
 #include <vector>
 #include <iostream>
 #include <fstream>
+<<<<<<< HEAD
 #include <algorithm>
 using namespace std;
 string solver::run(const char * argv[]){
@@ -21,12 +22,26 @@ string solver::run(const char * argv[]){
     vector<string> plain_text;
     vector<int> potentialKeys;
     
+=======
+#include <stdlib.h>
+
+using namespace std;
+string solver::run(const char * argv[]) {
+    
+    cipher_in = getInputFile(argv);
+    //cout << cipher_in << endl;
+    
+    vector<string> plain_text;
+    vector<int> potentialKeys;
+    double ioc;
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     
     findMonograms();
     
     findDigrams();
     findTrigrams();
     
+<<<<<<< HEAD
     findIC();
     //shift cipher
     //potentialKeys = FindShiftKeys(cipher_in,monogram_frequencies);
@@ -34,6 +49,40 @@ string solver::run(const char * argv[]){
     //plain_text = DecryptShift(cipher_in, potentialKeys);
     
     //for(int i = 0; i < plain_text.size(); i++) cout << "Key:" << potentialKeys[i] <<"\t" << "Plain Text:" << plain_text[i]<<endl;
+=======
+    ioc = findIC();
+    
+    if ((ioc > 1.68) && (ioc < 1.78))
+    {
+        cout << "Cipher is most likely Shift -> finding possible keys\n";
+        potentialKeys = FindShiftKeys(cipher_in, monogram_frequencies);
+        plain_text = DecryptShift(cipher_in, potentialKeys);
+        
+        for (int i = 0; i < plain_text.size(); i++)
+        {
+            cout << "Testing Key: " << potentialKeys[i] << endl;
+            int tmp = testPlainText(plain_text[i]);
+            if ( tmp > 20)
+            {
+                cout << "Possible Decryption as THE/AND count is " << tmp << endl << plain_text[i] << endl << endl;
+            }
+            else
+            {
+                cout << "Unlikely Decryption as THE/AND count is " << tmp << endl << endl;
+            }
+        }
+        
+    }
+    else if (ioc >= 1.78)
+    {
+        cout << "Cipher is most likely Substitution -> finding possible keys\n";
+    }
+    else if ((ioc > 0.95) && (ioc < 1.05))
+    {
+        cout << "Cipher is most likely One-Time Pad -> Good luck finding keys\n";
+    }
+    
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     return "hi";
 }
 
@@ -44,8 +93,13 @@ string solver::getInputFile(const char * argv[]){
     vector<string> cipher_in;
     //string cipher_in [] = {};
     char temp[200];
+<<<<<<< HEAD
     realpath(argv[1],temp);
     cout << argv[1] << endl<<temp<<endl;
+=======
+    //realpath(argv[1],temp);
+    cout << argv[1] << endl;
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     
     cipherFileIn.open(argv[1]);
     
@@ -68,8 +122,35 @@ string solver::getInputFile(const char * argv[]){
 }
 
 
+<<<<<<< HEAD
 void solver::findMonograms (){
     int length = 0;
+=======
+int solver::testPlainText(std::string plaintext) {
+    
+    int occurences;
+    occurences = 0;
+    
+    // test for THE
+    for (int i = 0; i < plaintext.length()-2; i++)
+    {
+        if (plaintext[i] == 'T' && plaintext[i+1] == 'H' && plaintext[i + 2] == 'E')
+            occurences++;
+    }
+    // test for AND
+    for (int i = 0; i < plaintext.length() - 2; i++)
+    {
+        if (plaintext[i] == 'A' && plaintext[i + 1] == 'N' && plaintext[i + 2] == 'D')
+            occurences++;
+    }
+    return occurences;
+}
+
+void solver::findMonograms (){
+    int length = 0;
+    for (int i = 0; i < 26; i++)
+        monograms[i] = 0;
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     
     for(int i=0; i < cipher_in.length(); i++){
         switch (cipher_in[i]) {
@@ -160,6 +241,7 @@ void solver::findMonograms (){
     cout << "Number of characters in file: " << length << endl;
     
     for(int i = 0; i < 26; i++){
+<<<<<<< HEAD
         monogram.push_back(FrequencyThing(((double)monograms[i]/(double)cipher_in.length())*100,"a"));
         monogram.at(i).c = char(i+65);
         //monogram.at(i).frequency =((double)monograms[i]/(double)cipher_in.length())*100;
@@ -171,6 +253,11 @@ void solver::findMonograms (){
     for(int i = 0; i < 10; i ++){
         cout << monogram.at(i).c << "\tFrequency:" << monogram.at(i).frequency << endl;
     }/*
+=======
+        monogram_frequencies[i] = ((double)monograms[i]/(double)cipher_in.length())*100;
+    }
+    
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     cout << "Monogram Occurances:" << endl;
     cout << "A: " << monograms[0] << "\tFrequency: " << setprecision(5) << monogram_frequencies[0] << "%" << endl;
     cout << "B: " << monograms[1] << "\tFrequency: " << setprecision(5) << monogram_frequencies[1] << "%" << endl;
@@ -198,13 +285,18 @@ void solver::findMonograms (){
     cout << "X: " << monograms[23] << "\tFrequency: " << setprecision(5) << monogram_frequencies[23] << "%" << endl;
     cout << "Y: " << monograms[24] << "\tFrequency: " << setprecision(5) << monogram_frequencies[24] << "%" << endl;
     cout << "Z: " << monograms[25] << "\tFrequency: " << setprecision(5) << monogram_frequencies[25] << "%" << endl << endl;
+<<<<<<< HEAD
     */
+=======
+    
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     
     //    IC = findIC(cipher_in, monograms);
     //
     //    cout << "Index of Coincidence: " << IC << endl;
 }
 
+<<<<<<< HEAD
 void solver::findDigrams () {
     cout << "Digram Occurances: " << endl;
     
@@ -218,6 +310,22 @@ void solver::findDigrams () {
         
         //ignore spaces
         if (seq.compare(0,1, " ") && seq.compare(1,1, " "))
+=======
+void solver::findTrigrams () {
+    cout << "Trigram Occurances: " << endl;
+    
+    map<string,int> occurences;
+    
+    string seq("   ");
+    for(int i = 2; i < cipher_in.length() - 1; i++)
+    {
+        seq[0] = cipher_in[i-2];
+        seq[1] = cipher_in[i-1];
+        seq[2] = cipher_in[i];
+        
+        //ignore spaces
+        if (seq.compare(0,1, " ") && seq.compare(1,1, " ")&&seq.compare(2,1, " "))
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
         {
             occurences[seq]++;
         }
@@ -226,6 +334,7 @@ void solver::findDigrams () {
     for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
     {
         if(iter->second >= 100){
+<<<<<<< HEAD
             digram.push_back(FrequencyThing((double)((iter->second)*100)/(cipher_in.length()/2),iter->first));
             //cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
         } else {
@@ -262,10 +371,37 @@ void solver::findTrigrams () {
         }
     }
     size_t x = 0, y = 0;
+=======
+            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
+        } //else {
+        //cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
+        //}
+    }
+    //cout << endl;
+}
+void solver::findDigrams () {
+    cout << "Digram Occurances: " << endl;
+    
+    map<string,int> occurences;
+    
+    string seq("  ");
+    for(int i = 1; i < cipher_in.length() - 1; i++)
+    {
+        seq[0] = cipher_in[i-1];
+        seq[1] = cipher_in[i];
+        
+        //ignore spaces
+        if (seq.compare(0,1, " ") && seq.compare(1,1, " "))
+        {
+            occurences[seq]++;
+        }
+    }
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     
     for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
     {
         if(iter->second >= 100){
+<<<<<<< HEAD
             trigram.push_back(FrequencyThing((double)((iter->second)*100)/(cipher_in.length()/2),iter->first));
             while(true){
                 x = cipher_in.find(iter->first,y);
@@ -304,6 +440,17 @@ void solver::findTrigrams () {
     //cout << endl;
 }
 void solver::findIC () {
+=======
+            cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
+        } else {
+            cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
+        }
+    }
+    cout << endl;
+}
+
+double solver::findIC () {
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
     // Finds the Index of Coincidence (IC): given a ciphertext string as input, outputs the IC value
     double text_length = (double)cipher_in.length();
     double sum_of_monograms = 0.0;
@@ -312,9 +459,16 @@ void solver::findIC () {
         sum_of_monograms = sum_of_monograms + (monograms[i]*(monograms[i]-1));
     }
     
+<<<<<<< HEAD
     double index_of_coincidence = (1/(text_length*(text_length-1)))*sum_of_monograms;
     
     cout << "Index of Coincidence (IC): " << index_of_coincidence << endl;
+=======
+    double index_of_coincidence = (1/(0.0385*(text_length*(text_length-1))))*sum_of_monograms;
+    
+    cout << "Index of Coincidence (IC): " << index_of_coincidence << endl;
+    return (index_of_coincidence);
+>>>>>>> bfc41ba565be7dccbb9bb498687ae0ba888015f9
 }
 
 

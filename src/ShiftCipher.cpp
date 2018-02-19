@@ -13,9 +13,10 @@ std::vector<int>FindShiftKeys(std::string cipherText, double monogram_frequencie
     std::vector<int> keys;
     for(int i = 0; i < 26; i ++){
         if(monogram_frequencies[i] > 10){
-            keys.push_back(('A' - (i+65)+26)%26);
+            keys.push_back(('A' - (i+65) +26)%26);
             keys.push_back(('E' - (i+65) +26)%26);
             keys.push_back(('O' - (i+65) +26)%26);
+            keys.push_back(('T' - (i+65) +26)%26);
         }
     }
     for(int x:keys){
