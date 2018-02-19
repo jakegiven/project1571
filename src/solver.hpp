@@ -9,13 +9,13 @@
 #ifndef solver_hpp
 #define solver_hpp
 
+#include "frequencies.hpp"
 #include <stdio.h>
 #include <iostream>
 #include <string>
 #include <fstream>
 #include <iomanip>
 #include <map>
-
 class solver{
 public:
     std::string run(const char * argv[]);
@@ -27,13 +27,15 @@ public:
     int monograms [26];
     int digrams [676];
     int trigrams [17576];
+    std::vector<FrequencyThing>monogram;
+    std::vector<FrequencyThing>digram;
+    std::vector<FrequencyThing>trigram;
+    double index_of_coincidence;
     std::string cipher_in;
     void findMonograms ();
     void findDigrams ();
     void findTrigrams ();
-    double findIC ();
-
-
+    void findIC ();
 
 
 };
