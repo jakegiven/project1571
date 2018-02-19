@@ -1,39 +1,85 @@
 //
-//  SubstitutionCipher.cpp
-//  Project
+//  SubstitutionCipher.cpp
+//  Project
 //
-//  Created by Jake Given on 2/18/18.
+//  Created by Jake Given on 2/18/18.
 //
 //
 #include "SubstitutionCipher.hpp"
 #include <iostream>
+using namespace std;
 
-
-
-std::vector<int>FindSubstitutionKeys(std::string cipherText,double monogram_frequencies[],double digram_frequencies[], double trigram_frequencies[]){
-    std::vector<int> keys;
-    for(int i = 0; i < 26; i ++){
-        if(monogram_frequencies[i] > 10){
-            keys.push_back(('A' - (i+65)+26)%26);
-            keys.push_back(('E' - (i+65) +26)%26);
-            keys.push_back(('O' - (i+65) +26)%26);
-        }
-    }
-    for(int x:keys){
-        std::cout << x <<std::endl;
-    }
+void FindSubstitutionKeys(string cipherText,double monogram_frequencies[]){
+    string plainText;
     
-    return keys;
-}
-
-std::vector<std::string> DecryptSubstitution(std::string cipherText, std::vector<int> keys){
-    std::vector<std::string> plainText;
-    //std::vector<int> letters;
-    for(int i = 0; i < keys.size(); i ++){
-        plainText.push_back("");
-        for(char x:cipherText){
-            plainText[i].push_back(((x - 65 + keys[i])%26)+65);
+    const char freq[] = {'E','T','A','O','I','N','S','R','H','D','L','U','C','M','F','Y','W','G','P','B','V','K','X','Q','J','Z'};
+    char key[] = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+    double tmp_mf[26];
+    
+    for (int i = 0; i < 26; i++) {
+        tmp_mf[i] = monogram_frequencies[i];
+    }
+        
+    int found = 0;
+    while (!found)
+    {
+        found = 1;
+        for (int i = 0; i < 25; i++) {
+            if (tmp_mf[i] < tmp_mf[i + 1])
+            {
+                double v = tmp_mf[i];
+                tmp_mf[i] = tmp_mf[i + 1];
+                tmp_mf[i + 1] = v;
+                char c = key[i];
+                key[i] = key[i + 1];
+                key[i + 1] = c;
+                found = 0;
+            }
         }
     }
-    return plainText;
+        
+    string selection = "0";
+    while (selection != "3")
+    {
+        if (selection == "0" || selection == "1")
+        {
+            for (int i = 0; i < 26; i++)
+            {
+                cout << key[i] << "->" << freq[i] << endl;
+            }
+        }
+        if (selection == "0" || selection == "2")
+        {
+            for (int n = 0; n < cipherText.length(); n++)
+            {
+                for (int i = 0; i < 26; i++)
+                {
+                    if (cipherText[n] == key[i])
+                        plainText = plainText + freq[i];
+                }
+            }
+            
+            for (int n = 0; n < 160; n++)
+            {
+                cout << plainText[n];
+            }
+        }
+        
+        cout << "\n\n1. View Key\n2. Switch Charaters\n3.Done (View Plain Text)\n";
+        cin >> selection;
+        
+        if (selection == "2")
+        {
+            
+        }
+        else if (selection == "3")
+        {
+            cout << "Plain Text:\n";
+            for (int n = 0; n < cipherText.length(); n++)
+            {
+                cout << plainText[n];
+            }
+            
+        }
+    }
 }
