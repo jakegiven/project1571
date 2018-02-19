@@ -12,10 +12,9 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-extern double monogram_frequencies[];
-extern double digram_frequencies[];
-std::vector<int>FindShiftKeys(std::string);
 
+
+std::vector<int>FindShiftKeys(std::string cipherText, double monogram_frequencies[]);
 std::vector<std::string> DecryptShift(std::string cipherText, std::vector<int> key);
 
 #endif /* ShiftCipher_hpp */

@@ -1,15 +1,16 @@
 //
-//  ShiftCipher.cpp
+//  SubstitutionCipher.cpp
 //  Project
 //
 //  Created by Jake Given on 2/18/18.
 //
 //
-#include "ShiftCipher.hpp"
+#include "SubstitutionCipher.hpp"
 #include <iostream>
 
 
-std::vector<int>FindShiftKeys(std::string cipherText, double monogram_frequencies[26]){
+
+std::vector<int>FindSubstitutionKeys(std::string cipherText,double monogram_frequencies[],double digram_frequencies[], double trigram_frequencies[]){
     std::vector<int> keys;
     for(int i = 0; i < 26; i ++){
         if(monogram_frequencies[i] > 10){
@@ -22,10 +23,10 @@ std::vector<int>FindShiftKeys(std::string cipherText, double monogram_frequencie
         std::cout << x <<std::endl;
     }
     
-        return keys;
+    return keys;
 }
 
-std::vector<std::string> DecryptShift(std::string cipherText, std::vector<int> keys){
+std::vector<std::string> DecryptSubstitution(std::string cipherText, std::vector<int> keys){
     std::vector<std::string> plainText;
     //std::vector<int> letters;
     for(int i = 0; i < keys.size(); i ++){
