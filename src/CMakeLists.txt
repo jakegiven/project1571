@@ -22,6 +22,6 @@ file( GLOB SRCS *.cpp *.h )
 
 # Define the target application executable (named echoer) and the list of C source
 # and header files needed for the executable.
-add_executable( ececms ${SRCS} )
+add_executable( cracking-ciphers ${SRCS} )
 # set_property(TARGET echo PROPERTY C_STANDARD 11)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")

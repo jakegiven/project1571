@@ -18,7 +18,7 @@
 cmake_minimum_required(VERSION 2.6)
 
 # Define the project name. 
-project (ececms_project)
+project (cracking-ciphers_project)
 
 # Add a subdirectory to the project. The CMakeLists.txt file in that subdirectory
 # will be used for further setting up the project.
