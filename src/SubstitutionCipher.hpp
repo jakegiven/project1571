@@ -13,7 +13,6 @@
 #include <string>
 #include <vector>
 
-
-std::vector<int>FindSubstitutionKeys(std::string,double monogram_frequencies[], double digram_frequencies[], double trigram_frequencies[]);
-std::vector<std::string> DecryptSubstitution(std::string cipherText, std::vector<int> key);
+void FindSubstitutionKeys(std::string,double monogram_frequencies[]);
 #endif /* SubstitutionCipher_hpp */
+
