@@ -27,6 +27,9 @@ public:
     int monograms [26];
     int digrams [676];
     int trigrams [17576];
+    std::vector<FrequencyThing>monogram;
+    std::vector<FrequencyThing>digram;
+    std::vector<FrequencyThing>trigram;
     double index_of_coincidence;
     std::string cipher_in;
     void findMonograms ();
