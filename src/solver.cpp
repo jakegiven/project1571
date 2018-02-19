@@ -8,10 +8,12 @@
 
 #include "solver.hpp"
 #include "ShiftCipher.hpp"
+#include "SubstitutionCipher.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
-#include <algorithm>
+#include <stdlib.h>
+
 using namespace std;
 string solver::run(const char * argv[]){
     
@@ -60,6 +62,7 @@ string solver::run(const char * argv[]){
     else if (index_of_coincidence >= 1.78)
     {
         cout << "Cipher is most likely Substitution -> finding possible keys\n";
+        FindSubstitutionKeys(cipher_in, monogram_frequencies);
     }
     else if ((index_of_coincidence > 0.95) && (index_of_coincidence < 1.05))
     {
