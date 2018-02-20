@@ -84,6 +84,8 @@ void vigSolve(int keyLength,string cipher_in,vector<FrequencyThing> monograms){
     vector<string> keys;
     double ioc = 0.0;
     vector<string> goodKeys;
+    double maxioc = 0.0;
+    string bestKey;
     
     ifstream dictionary("../../ciphertexts/dictionary.txt");
     if(!dictionary){
@@ -97,12 +99,21 @@ void vigSolve(int keyLength,string cipher_in,vector<FrequencyThing> monograms){
     for(string key:keys){
         tempString = TestDecryptVigenere(cipher_in, key);
         ioc = calcIC(tempString);
-        if(ioc > 1.3 || key.compare("TUCSON") == 0){
-            goodKeys.push_back(key);
-            cout << "Key:"<< key << " \t Text:" << tempString<<endl;
+        if(ioc > 1.3){
+            if(ioc>maxioc){
+                maxioc = ioc;
+                bestKey = key;
+            }
+            //goodKeys.push_back(key);
+            //cout << "Key:"<< key << " \t Text:" << tempString<<endl;
         }
         
     }
+    cout << "Key:"<< bestKey << " \t Text:" << TestDecryptVigenere(cipher_in, bestKey)<<endl;
+    //tempString = TestDecryptVigenere(cipher_in, "NTUCSO");
+    //ioc = calcIC(tempString);
+    //cout << "Key:"<< "NTUCSO" << " \t Text:" << tempString<<endl;
+
     
 }
 double calcIC(string cipher_in) {
@@ -209,7 +220,7 @@ string TestDecryptVigenere(string cipher_in, string key){
     string plainText;
     for(int i = 0; i < cipher_in.size(); i ++){
         //plainText[i].push_back(((x - 65 + keys[i])%26)+65);
-        char temp =((cipher_in.at(i)-65) + (key.at(i%key.size()) - 64) + 26 )%26 + 65;
+        char temp =((cipher_in.at(i)-65) - (key.at(i%key.size()) - 65) + 26 )%26 + 65;
         plainText+=temp;
     }
     return plainText;
