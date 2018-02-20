@@ -13,6 +13,8 @@
 #include <vector>
 #include <string>
 #include "frequencies.hpp"
+double calcIC(std::string cipher_in);
+std::string TestDecryptVigenere(std::string cipher_in, std::string key);
 
     int kasiskiTest(std::vector<FrequencyThing> trigrams);
     void vigSolve(int keyLength,std::string cipher_in, std::vector<FrequencyThing> monogram);
