@@ -50,53 +50,66 @@ int kasiskiTest(vector<FrequencyThing> trigrams){
     return highest;
     
 }
-void vigSolve(int keyLength,string cipher_in,vector<FrequencyThing> monograms){
+void vigSolve(int keyLength,string cipher_in, vector<FrequencyThing> monograms, vector<FrequencyThing> trigrams){
     //create alphabet frequencies
     vector<FrequencyThing> alphabet;
     vector<FrequencyThing> monogram;
-    alphabet.push_back(FrequencyThing(8.167,"A"));
-    alphabet.push_back(FrequencyThing(1.492,"B"));
-    alphabet.push_back(FrequencyThing(2.782,"C"));
-    alphabet.push_back(FrequencyThing(4.253,"D"));
-    alphabet.push_back(FrequencyThing(12.702,"E"));
-    alphabet.push_back(FrequencyThing(2.228,"F"));
-    alphabet.push_back(FrequencyThing(2.015,"G"));
-    alphabet.push_back(FrequencyThing(6.094,"H"));
-    alphabet.push_back(FrequencyThing(6.966,"I"));
-    alphabet.push_back(FrequencyThing(0.153,"J"));
-    alphabet.push_back(FrequencyThing(0.772,"K"));
-    alphabet.push_back(FrequencyThing(4.025,"L"));
-    alphabet.push_back(FrequencyThing(2.406,"M"));
-    alphabet.push_back(FrequencyThing(6.749,"N"));
-    alphabet.push_back(FrequencyThing(7.507,"O"));
-    alphabet.push_back(FrequencyThing(1.929,"P"));
-    alphabet.push_back(FrequencyThing(0.095,"Q"));
-    alphabet.push_back(FrequencyThing(5.987,"R"));
-    alphabet.push_back(FrequencyThing(6.327,"S"));
-    alphabet.push_back(FrequencyThing(9.056,"T"));
-    alphabet.push_back(FrequencyThing(2.758,"U"));
-    alphabet.push_back(FrequencyThing(0.978,"V"));
-    alphabet.push_back(FrequencyThing(2.360,"W"));
-    alphabet.push_back(FrequencyThing(0.150,"X"));
-    alphabet.push_back(FrequencyThing(1.974,"Y"));
-    alphabet.push_back(FrequencyThing(0.074,"Z"));
-    string key;
-    for(int i = 0 ;i < keyLength; i ++){
-        key += "A";
-    }
-    string text = cipher_in.substr(0,200);
-    vector<FrequencyThing> copy;
-    for(FrequencyThing x:monograms){
-        copy.push_back(x);
-    }
+    int iter = 0;
+    int start_iter = 0;
+    string key = "";
     
+    while (start_iter < keyLength){
     
-    
-    
+        map<string,int> occurences;
+        
+        string seq("  ");
 
+        for(iter = start_iter; iter < cipher_in.length(); iter++)
+        {
+            seq[0] = cipher_in[iter];
+            occurences[seq]++;
+            iter = (iter + keyLength) - 1;
+        }
+        
+        int highest_occuring_number = 0; // takes the letter associated with the highest occuring letter
+        char highest_occuring_letter = 'A';
+        char temp_letter;
+        
+        for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
+        {
+            if(highest_occuring_number < iter->second){
+                highest_occuring_number = iter->second;
+                highest_occuring_letter = iter->first[0];
+                // map the highest occuring letter to the letter E in the English language to find key for that letter.
+                int diff = highest_occuring_letter - 'E'; //'c' - 'a' = 2
+                temp_letter = diff + 'A'; //add 'A' to normalize it
+            }
+        }
+        key = key + temp_letter;
+        start_iter++;
+    }
+
+    string decrypted_message = "";
+    int k = 0;
+    // decrypt the message
+    for(int j = 0; j < cipher_in.length(); j++){
+        int difference = (cipher_in[j] - key[k]) % 26;
+        
+        if(difference < 0){
+            difference = difference + 26;
+        }
+        
+        char temp = difference + 'A';
+        decrypted_message = decrypted_message + temp;
+        k++;
+        
+        if(k == keyLength){
+            k = 0;
+        }
+    }
     
-    
-    
+    cout << "Decrypted Message:" << endl << decrypted_message << endl;
+
 }
 
 

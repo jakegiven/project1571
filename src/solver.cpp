@@ -73,7 +73,7 @@ string solver::run(const char * argv[]){
     else if((index_of_coincidence > 0.95) && (index_of_coincidence < 1.5)){
         cout << "Cipher is likely vigenere" << endl;
         int keyLength = kasiskiTest(trigram);
-        vigSolve(keyLength,cipher_in,monogram);
+        vigSolve(keyLength,cipher_in, monogram, trigram);
     }
     return "hi";
 }

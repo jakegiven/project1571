@@ -15,7 +15,7 @@
 #include "frequencies.hpp"
 
     int kasiskiTest(std::vector<FrequencyThing> trigrams);
-    void vigSolve(int keyLength,std::string cipher_in, std::vector<FrequencyThing> monogram);
+void vigSolve(int keyLength,std::string cipher_in, std::vector<FrequencyThing> monogram, std::vector<FrequencyThing> trigram);
 
 
 #endif /* VigenereCipher_hpp */
