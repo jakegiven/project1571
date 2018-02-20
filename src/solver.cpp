@@ -9,6 +9,7 @@
 #include "solver.hpp"
 #include "ShiftCipher.hpp"
 #include "SubstitutionCipher.hpp"
+#include "VigenereCipher.hpp"
 #include <vector>
 #include <iostream>
 #include <fstream>
@@ -37,6 +38,7 @@ string solver::run(const char * argv[]){
     
     //for(int i = 0; i < plain_text.size(); i++) cout << "Key:" << potentialKeys[i] <<"\t" << "Plain Text:" << plain_text[i]<<endl;
     findIC();
+    cout << index_of_coincidence <<endl;
     
     if ((index_of_coincidence > 1.68) && (index_of_coincidence < 1.78))
     {
@@ -67,6 +69,11 @@ string solver::run(const char * argv[]){
     else if ((index_of_coincidence > 0.95) && (index_of_coincidence < 1.05))
     {
         cout << "Cipher is most likely One-Time Pad -> Good luck finding keys\n";
+    }
+    else if((index_of_coincidence > 0.95) && (index_of_coincidence < 1.5)){
+        cout << "Cipher is likely vigenere" << endl;
+        int keyLength = kasiskiTest(trigram);
+        vigSolve(keyLength,cipher_in,monogram);
     }
     return "hi";
 }
@@ -247,12 +254,12 @@ void solver::findDigrams () {
     
     for(auto iter = occurences.begin(); iter != occurences.end(); ++iter)
     {
-        if(iter->second >= 100){
+        //if(iter->second >= 100){
             digram.push_back(FrequencyThing((double)((iter->second)*100)/(cipher_in.length()/2),iter->first));
             //cout << iter->first << "   " << iter->second << "\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
-        } else {
+        //} else {
             //cout << iter->first << "   " << iter->second << "\t\tFrequency: " << (double)((iter->second)*100)/(cipher_in.length()/2) << "%" << endl;
-        }
+        //}
     }
     sort(digram.begin(),digram.end());
     cout << "10 most frequent digrams:" <<endl;
